@@ -2,6 +2,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GestionAdministrative.Models;
 using GestionAdministrative.Services.Interfaces;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System;
 
 namespace GestionAdministrative.ViewModels;
 
@@ -12,6 +15,10 @@ namespace GestionAdministrative.ViewModels;
 public partial class ClientDetailViewModel : BaseViewModel
 {
     private readonly IClientService _clientService;
+
+    // Regex pour validation
+    private static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex FrenchPhoneRegex = new(@"^(?:\+33|0)[1-9](?:[ .-]?\d{2}){4}$", RegexOptions.Compiled);
 
     [ObservableProperty]
     private int clientId;
@@ -86,6 +93,24 @@ public partial class ClientDetailViewModel : BaseViewModel
             {
                 ShowError("L'email est obligatoire");
                 return;
+            }
+
+            // Valider email par regex
+            if (!EmailRegex.IsMatch(Client.Email.Trim()))
+            {
+                ShowError("L'email n'est pas valide");
+                return;
+            }
+
+            // Valider téléphone si renseigné (format FR attendu ou +33)
+            if (!string.IsNullOrWhiteSpace(Client.Telephone))
+            {
+                var tel = Client.Telephone.Trim();
+                if (!FrenchPhoneRegex.IsMatch(tel))
+                {
+                    ShowError("Le numéro de téléphone n'est pas valide. Format attendu : 0x xx xx xx xx ou +33 x xx xx xx xx");
+                    return;
+                }
             }
 
             await _clientService.SaveClientAsync(Client);
