@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GestionAdministrative.ViewModels"
+             xmlns:models="clr-namespace:GestionAdministrative.Models"
+             x:Class="GestionAdministrative.Views.ClientsPage"
+             x:DataType="viewmodels:ClientsViewModel"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+        
+        <!-- Barre d'actions -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,10">
+            <Button Text="Nouveau Client" 
+                    Command="{Binding AddClientCommand}"
+                    BackgroundColor="{StaticResource Primary}"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"/>
+        </HorizontalStackLayout>
+
+        <!-- Message d'erreur -->
+        <Frame Grid.Row="1" 
+               IsVisible="{Binding HasError}"
+               BackgroundColor="LightPink"
+               Padding="10"
+               Margin="0,0,0,10">
+            <Label Text="{Binding ErrorMessage}" TextColor="Red"/>
+        </Frame>
+
+        <!-- Liste des clients -->
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Clients}"
+                          SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="20" VerticalOptions="Center">
+                        <Label Text="Aucun client"
+                               FontSize="18"
+                               HorizontalOptions="Center"
+                               TextColor="Gray"/>
+                        <Label Text="Appuyez sur 'Nouveau Client' pour commencer"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               TextColor="Gray"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Client">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Supprimer"
+                                             BackgroundColor="Red"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientsViewModel}}, Path=DeleteClientCommand}"
+                                             CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Frame Margin="5" Padding="10" HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientsViewModel}}, Path=SelectClientCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding Nom}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"/>
+                                    
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="{Binding Email}"
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+                                    
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="{Binding Telephone}"
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+
+                                    <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
+                                           Source="chevron_right.png"
+                                           WidthRequest="20"
+                                           HeightRequest="20"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

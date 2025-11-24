@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GestionAdministrative.ViewModels"
+             xmlns:models="clr-namespace:GestionAdministrative.Models"
+             x:Class="GestionAdministrative.Views.DevisListPage"
+             x:DataType="viewmodels:DevisListViewModel"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+        
+        <!-- Barre d'actions -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,10">
+            <Button Text="Nouveau Devis" 
+                    Command="{Binding AddDevisCommand}"
+                    BackgroundColor="{StaticResource Primary}"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"/>
+        </HorizontalStackLayout>
+
+        <!-- Liste des devis -->
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding DevisList}"
+                          SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="20" VerticalOptions="Center">
+                        <Label Text="Aucun devis"
+                               FontSize="18"
+                               HorizontalOptions="Center"
+                               TextColor="Gray"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Devis">
+                        <Frame Margin="5" Padding="15" HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DevisListViewModel}}, Path=SelectDevisCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding Numero}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
+                                
+                                <Label Grid.Row="1" Grid.Column="0"
+                                       Text="{Binding DateEmission, StringFormat='Date: {0:dd/MM/yyyy}'}"
+                                       FontSize="14"
+                                       TextColor="Gray"/>
+                                
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Text="{Binding MontantTTC, StringFormat='Montant: {0:C}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="Green"/>
+
+                                <Frame Grid.Row="3" Grid.Column="0"
+                                       Padding="5,2"
+                                       BackgroundColor="LightBlue"
+                                       HasShadow="False"
+                                       HorizontalOptions="Start">
+                                    <Label Text="{Binding Statut}"
+                                           FontSize="12"/>
+                                </Frame>
+
+                                <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="4"
+                                        Text="→ Facture"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DevisListViewModel}}, Path=ConvertToFactureCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IsVisible="{Binding Statut, Converter={StaticResource StringToBoolConverter}, ConverterParameter='Accepté'}"
+                                        BackgroundColor="Orange"
+                                        VerticalOptions="Center"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

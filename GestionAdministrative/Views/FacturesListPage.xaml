@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GestionAdministrative.ViewModels"
+             xmlns:models="clr-namespace:GestionAdministrative.Models"
+             x:Class="GestionAdministrative.Views.FacturesListPage"
+             x:DataType="viewmodels:FacturesListViewModel"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+        
+        <!-- Barre d'actions -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,10">
+            <Button Text="Nouvelle Facture" 
+                    Command="{Binding AddFactureCommand}"
+                    BackgroundColor="{StaticResource Primary}"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"/>
+        </HorizontalStackLayout>
+
+        <!-- Liste des factures -->
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Factures}"
+                          SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="20" VerticalOptions="Center">
+                        <Label Text="Aucune facture"
+                               FontSize="18"
+                               HorizontalOptions="Center"
+                               TextColor="Gray"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Facture">
+                        <Frame Margin="5" Padding="15" HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FacturesListViewModel}}, Path=SelectFactureCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding Numero}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
+                                
+                                <Label Grid.Row="1" Grid.Column="0"
+                                       Text="{Binding DateEmission, StringFormat='Émise le: {0:dd/MM/yyyy}'}"
+                                       FontSize="14"
+                                       TextColor="Gray"/>
+                                
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Text="{Binding DateEcheance, StringFormat='Échéance: {0:dd/MM/yyyy}'}"
+                                       FontSize="14"
+                                       TextColor="Gray"/>
+                                
+                                <Label Grid.Row="3" Grid.Column="0"
+                                       Text="{Binding MontantTTC, StringFormat='Montant: {0:C}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="Green"/>
+
+                                <Frame Grid.Row="4" Grid.Column="0"
+                                       Padding="5,2"
+                                       BackgroundColor="LightGreen"
+                                       HasShadow="False"
+                                       HorizontalOptions="Start">
+                                    <Label Text="{Binding Statut}"
+                                           FontSize="12"/>
+                                </Frame>
+
+                                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="5"
+                                       Source="chevron_right.png"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

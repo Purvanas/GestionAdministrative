@@ -61,13 +61,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Modelviews\" />
-	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>

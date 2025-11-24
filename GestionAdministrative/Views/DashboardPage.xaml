@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GestionAdministrative.ViewModels"
+             x:Class="GestionAdministrative.Views.DashboardPage"
+             x:DataType="viewmodels:DashboardViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <!-- Bouton Rafraîchir -->
+            <Button Text="Rafraîchir" 
+                    Command="{Binding RefreshCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    HorizontalOptions="End"/>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"/>
+
+            <!-- KPI Cards -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                
+                <!-- Total Clients -->
+                <Frame Grid.Row="0" Grid.Column="0" Padding="15" HasShadow="True">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Clients" FontSize="14" TextColor="Gray"/>
+                        <Label Text="{Binding TotalClients}" FontSize="28" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Devis en attente -->
+                <Frame Grid.Row="0" Grid.Column="1" Padding="15" HasShadow="True">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Devis en attente" FontSize="14" TextColor="Gray"/>
+                        <Label Text="{Binding NombreDevisEnAttente}" FontSize="28" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- CA Total -->
+                <Frame Grid.Row="1" Grid.Column="0" Padding="15" HasShadow="True">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="CA Total" FontSize="14" TextColor="Gray"/>
+                        <Label Text="{Binding ChiffreAffaireTotal, StringFormat='{0:C}'}" 
+                               FontSize="24" 
+                               FontAttributes="Bold"
+                               TextColor="Green"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- CA Mensuel -->
+                <Frame Grid.Row="1" Grid.Column="1" Padding="15" HasShadow="True">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="CA ce mois" FontSize="14" TextColor="Gray"/>
+                        <Label Text="{Binding ChiffreAffaireMensuel, StringFormat='{0:C}'}" 
+                               FontSize="24" 
+                               FontAttributes="Bold"
+                               TextColor="Green"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </Grid>
+
+            <!-- Factures impayées -->
+            <Frame Padding="15" HasShadow="True" BackgroundColor="LightCoral">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Factures impayées" FontSize="16" TextColor="White" FontAttributes="Bold"/>
+                    <Label Text="{Binding MontantFacturesImpayees, StringFormat='{0:C}'}" 
+                           FontSize="28" 
+                           TextColor="White"
+                           FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Graphique CA (placeholder) -->
+            <Frame Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Chiffre d'affaires - 12 derniers mois" 
+                           FontSize="16" 
+                           FontAttributes="Bold"/>
+                    <Label Text="[Graphique à implémenter avec une bibliothèque de charts]"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"
+                           Margin="0,20"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
