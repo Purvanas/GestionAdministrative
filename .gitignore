@@ -1,0 +1,149 @@
+# .gitignore for a .NET MAUI (net9.0) MVVM project
+# Generated to cover Visual Studio, dotnet, Android, iOS, Mac Catalyst, Windows and common editors
+
+# Visual Studio / VS for Mac
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.cache
+*.vspscc
+
+# Rider
+.idea/
+*.sln.iml
+
+# Build results
+bin/
+obj/
+out/
+
+# NuGet
+*.nupkg
+.nuget/packages/
+.nuget/packages/*
+project.lock.json
+project.fragment.lock.json
+
+# Visual Studio Code workspace
+.history/
+
+# User-specific files
+*.userprefs
+*.userosscache
+*.suo
+*.user
+*.userosscache
+
+# Logs
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets / local settings
+appsettings.*.json
+local.settings.json
+secrets.json
+*.pfx
+*.key
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Mac Catalyst / iOS
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xcworkspace
+*.xcuserstate
+*.ipa
+*.dSYM
+
+# Android
+.gradle/
+**/obj/**
+**/bin/**
+local.properties
+*.keystore
+*.jks
+captures/
+*.apk
+*.ap_
+*.aab
+.gradle/
+*.lock
+
+# Android Studio
+.idea/
+*.iml
+.gradle/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# MAUI specific
+Platforms/**/bin/
+Platforms/**/obj/
+Resources/Raw/*
+# Exclude generated Resource.designer.cs files if you prefer to keep them generated locally
+**/Resources/Resource.designer.cs
+
+# Generated .NET MAUI intermediate files
+.maui/**
+.maui
+
+# Xamarin / legacy
+*.apk
+*.ap_
+*.jar
+*.keystore
+
+# Rider caches
+.idea/
+*.sln.iml
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+.coverage*
+
+# Package managers
+node_modules/
+jspm_packages/
+bower_components/
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Ignore secrets used by development, e.g., Azure
+secrets.json
+
+# Locks
+packages.lock.json
+
+# Misc
+*.vsix
+
+# End of .gitignore
