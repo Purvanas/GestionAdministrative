@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "K9u5iTafSAE=",
+  "dgSpecHash": "deOnaUiY/tQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\arnau\\Documents\\dev\\Git\\GestionAdministrative\\GestionAdministrative\\GestionAdministrative.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\arnau\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
     "C:\\Users\\arnau\\.nuget\\packages\\googlegson\\2.13.0.1\\googlegson.2.13.0.1.nupkg.sha512",
     "C:\\Users\\arnau\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.5\\microsoft.extensions.configuration.9.0.5.nupkg.sha512",
     "C:\\Users\\arnau\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.5\\microsoft.extensions.configuration.abstractions.9.0.5.nupkg.sha512",

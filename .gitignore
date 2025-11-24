@@ -1,149 +1,112 @@
-# .gitignore for a .NET MAUI (net9.0) MVVM project
-# Generated to cover Visual Studio, dotnet, Android, iOS, Mac Catalyst, Windows and common editors
-
-# Visual Studio / VS for Mac
-.vs/
-.vscode/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-*.sln.cache
-*.vspscc
-
-# Rider
-.idea/
-*.sln.iml
-
-# Build results
+# ──────────────────────────────────────────────
+# .NET / MAUI
+# ──────────────────────────────────────────────
 bin/
 obj/
 out/
+.maui/
+.maui/**
 
-# NuGet
-*.nupkg
-.nuget/packages/
-.nuget/packages/*
-project.lock.json
-project.fragment.lock.json
+# MAUI platform folders
+Platforms/**/bin/
+Platforms/**/obj/
+**/Resources/Resource.designer.cs
+**/Resources/Raw/*
 
-# Visual Studio Code workspace
-.history/
-
-# User-specific files
-*.userprefs
-*.userosscache
-*.suo
-*.user
-*.userosscache
-
-# Logs
-*.log
-
-# OS generated
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Secrets / local settings
+# User secrets
+secrets.json
 appsettings.*.json
 local.settings.json
-secrets.json
-*.pfx
-*.key
 
-# Resharper
-_ReSharper*/
-*.DotSettings.user
+# ──────────────────────────────────────────────
+# Android
+# ──────────────────────────────────────────────
+.gradle/
+local.properties
+*.keystore
+*.jks
+*.apk
+*.ap_
+*.aab
+captures/
 
-# Mac Catalyst / iOS
-*.mode1v3
-*.mode2v3
-*.perspectivev3
+# ──────────────────────────────────────────────
+# iOS / Mac / Xcode
+# ──────────────────────────────────────────────
 xcuserdata/
 *.xcworkspace
 *.xcuserstate
 *.ipa
 *.dSYM
-
-# Android
-.gradle/
-**/obj/**
-**/bin/**
-local.properties
-*.keystore
-*.jks
-captures/
-*.apk
-*.ap_
-*.aab
-.gradle/
-*.lock
-
-# Android Studio
-.idea/
-*.iml
-.gradle/
+*.mode1v3
+*.mode2v3
+*.perspectivev3
 
 # macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 
+# ──────────────────────────────────────────────
 # Windows
+# ──────────────────────────────────────────────
 Thumbs.db
+desktop.ini
 ehthumbs.db
 
-# MAUI specific
-Platforms/**/bin/
-Platforms/**/obj/
-Resources/Raw/*
-# Exclude generated Resource.designer.cs files if you prefer to keep them generated locally
-**/Resources/Resource.designer.cs
-
-# Generated .NET MAUI intermediate files
-.maui/**
-.maui
-
-# Xamarin / legacy
-*.apk
-*.ap_
-*.jar
-*.keystore
-
-# Rider caches
+# ──────────────────────────────────────────────
+# Visual Studio / Rider
+# ──────────────────────────────────────────────
+.vs/
+.vscode/
 .idea/
-*.sln.iml
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.cache
+*.DotSettings.user
 
-# Test results
+# ──────────────────────────────────────────────
+# NuGet
+# ──────────────────────────────────────────────
+*.nupkg
+.nuget/packages/
+project.lock.json
+project.fragment.lock.json
+packages.lock.json
+
+# ──────────────────────────────────────────────
+# Logs
+# ──────────────────────────────────────────────
+*.log
+
+# ──────────────────────────────────────────────
+# Test / Coverage
+# ──────────────────────────────────────────────
 TestResults/
 *.trx
 *.coverage
 .coverage*
 
-# Package managers
+# ──────────────────────────────────────────────
+# Node / front stuff
+# ──────────────────────────────────────────────
 node_modules/
-jspm_packages/
 bower_components/
+jspm_packages/
 
+# ──────────────────────────────────────────────
+# Databases (à ignorer si locales)
+# ──────────────────────────────────────────────
+*.sqlite
+*.db
+*.mdf
+*.ldf
+
+# ──────────────────────────────────────────────
 # Temporary files
+# ──────────────────────────────────────────────
 *.tmp
 *.temp
 ~$*
-
-# Database files
-*.mdf
-*.ldf
-*.sqlite
-*.db
-
-# Ignore secrets used by development, e.g., Azure
-secrets.json
-
-# Locks
-packages.lock.json
-
-# Misc
-*.vsix
-
-# End of .gitignore
